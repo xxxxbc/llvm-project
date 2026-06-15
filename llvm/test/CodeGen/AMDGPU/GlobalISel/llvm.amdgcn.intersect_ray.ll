@@ -22,7 +22,7 @@ define amdgpu_ps <4 x float> @image_bvh_intersect_ray(i32 %node_ptr, float %ray_
 ; GCN-NEXT:    image_bvh_intersect_ray v[0:3], v[0:10], s[0:3]
 ; GCN-NEXT:    s_waitcnt vmcnt(0)
 ; GCN-NEXT:    ; return to shader part epilog
-; ERR: in function image_bvh_intersect_ray{{.*}}intrinsic not supported on subtarget
+; ERR: in function @image_bvh_intersect_ray{{.*}}requires target feature 'bvh-ray-tracing-insts'
   %v = call <4 x i32> @llvm.amdgcn.image.bvh.intersect.ray.i32.v4f32(i32 %node_ptr, float %ray_extent, <3 x float> %ray_origin, <3 x float> %ray_dir, <3 x float> %ray_inv_dir, <4 x i32> %tdescr)
   %r = bitcast <4 x i32> %v to <4 x float>
   ret <4 x float> %r
